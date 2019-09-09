@@ -1,13 +1,13 @@
 #include "Main.h"
 
-int main(void)
-{
+int main(void) {
 	AppClass* pApp = new AppClass();
 	pApp->Run();
-	if (pApp)
-	{
+
+	if (pApp) {
 		delete pApp;
 		pApp = nullptr;
 	}
+
 	return 0;
 }

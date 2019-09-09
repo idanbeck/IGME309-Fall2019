@@ -6,15 +6,16 @@ const GLchar* vertexShader = R"glsl(
 	in vec3 positionBuffer;
 	void main()
 	{
-		gl_Position = vec4( positionBuffer, 1.0 );
+		gl_Position = vec4( positionBuffer, 1.0f );
 	}
 )glsl";
+
 const GLchar* fragmentShader = R"glsl(
 	#version 330
 	out vec4 fragment;
 	void main()
 	{
-		fragment = vec4( 1.0, 1.0, 1.0, 1.0 );
+		fragment = vec4( 1.0f, 1.0f, 1.0f, 1.0f );
 		return;
 	}
 )glsl";
@@ -103,21 +104,28 @@ int main()
 	{
 		// handle events
 		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-			{
-				// end the program
-				running = false;
-			}
-			else if (event.type == sf::Event::Resized)
-			{
-				// adjust the viewport when the window is resized
-				glViewport(0, 0, event.size.width, event.size.height);
-			}
-			else if (event.type == sf::Event::KeyPressed)
-			{
-				running = false;
+		while (window.pollEvent(event)) {
+			switch (event.type) {
+
+				case sf::Event::Closed: {
+					// end the program
+					running = false;
+				} break;
+
+				case sf::Event::Resized: {
+					// adjust the viewport when the window is resized
+					glViewport(0, 0, event.size.width, event.size.height);
+				} break;
+
+				case sf::Event::KeyPressed: {
+					if (event.key.code == 36) {
+						running = false;
+					}
+				} break;
+
+				default: {
+					// Do nothing
+				} break;
 			}
 		}
 
